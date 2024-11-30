@@ -25,3 +25,20 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Comment(models.Model):
+    email = models.EmailField()
+    text = models.TextField()
+    rating = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="comments"
+    )
+
+class CommentProductImage(models.Model):
+    image = models.ImageField(upload_to="comments")
+    comment = models.ForeignKey(
+        Comment, on_delete=models.CASCADE, related_name="images"
+    )

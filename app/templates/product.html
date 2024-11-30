@@ -93,4 +93,40 @@
     </div>
   </section>
 
+
+<section class="client_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h3>
+          Отзывы
+      </h3>
+    </div>
+  </div>
+  {% for comment in product.comments.all %}
+  <div class="container px-0">
+    <div class="box">
+      <div class="client_info">
+        <div class="client_name">
+          <h5>
+            {{ comment.email }} - {{ comment.rating }}
+          </h5>
+          <h6>
+            {{ comment.created }}
+          </h6>
+        </div>
+        <i class="fa fa-quote-left" aria-hidden="true"></i>      </div>
+      <div class="container container-bg">
+        <div class="row">
+          <div class="col-md-5 col-lg-4 px-0 right-side">
+            <p>
+              {{ comment.text }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %} 
+
+</section>
+
 {% endblock %}
