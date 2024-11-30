@@ -27,9 +27,11 @@
                 </svg>
               </div>
               <div class="detail-box">
-                <h5>
-                  {{ category.name }}
-                </h5>
+                <a href="{% url 'category' pk=category.id %}">
+                  <h5>
+                    {{ category.name }}
+                  </h5>
+                </a>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Category, Product
 
@@ -12,3 +12,15 @@ def render_index(request):
         "products": products
     }
     return render(request, "index.html", context)
+
+
+def get_products_by_category(request, pk):
+
+    category = get_object_or_404(Category, pk=id)
+    products = Product.objects.filter(category=category.id)
+
+    context = {
+        "category": category,
+        "products": products
+    }
+    return render(request, "category.html", context)
