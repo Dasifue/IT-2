@@ -16,7 +16,7 @@ def render_index(request):
 
 def get_products_by_category(request, pk):
 
-    category = get_object_or_404(Category, pk=id)
+    category = get_object_or_404(Category, id=pk)
     products = Product.objects.filter(category=category.id)
 
     context = {
