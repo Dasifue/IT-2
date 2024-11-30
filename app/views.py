@@ -24,3 +24,12 @@ def get_products_by_category(request, pk):
         "products": products
     }
     return render(request, "category.html", context)
+
+def get_product_by_id(request, pk):
+
+    product = get_object_or_404(Product, id=pk)
+
+    context = {
+        "product": product
+    }
+    return render(request, "product.html", context)
