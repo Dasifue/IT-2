@@ -29,6 +29,36 @@
         padding-top: 25%;
     }
 
+    .rating {
+        direction: rtl;
+        display: inline-block;
+    }
+
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        color: #ddd;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .rating input:checked ~ label {
+        color: #ffcc00;
+    }
+
+    .rating label:hover,
+    .rating label:hover ~ label {
+        color: #ffcc00;
+    }
+
+    .rating input:checked + label:hover,
+    .rating input:checked + label:hover ~ label {
+        color: #ffcc00;
+    }
+
+
 </style>
 
 <section class="client_section layout_padding">
@@ -93,6 +123,57 @@
     </div>
   </section>
 
+  <section class="contact_section ">
+    <div class="container px-0">
+      <div class="heading_container ">
+        <h3 class="">
+          Leave comment
+        </h3>
+      </div>
+    </div>
+    <div class="container container-bg">
+  
+      <form action="{% url 'create_comment' %}" method="post">
+        {% csrf_token %}
+        <div>
+          <input type="email" placeholder="example@gmail.com" name="email"/>
+        </div>
+        <div>
+          <input type="text" class="message-box" placeholder="Comment" name="text" />
+        </div>
+        <div class="rating">
+          <!-- 5 звезд -->
+          <input type="radio" name="rating" id="star5" value="5">
+          <label for="star5" class="fa fa-star"></label>
+  
+          <!-- 4 звезды -->
+          <input type="radio" name="rating" id="star4" value="4">
+          <label for="star4" class="fa fa-star"></label>
+  
+          <!-- 3 звезды -->
+          <input type="radio" name="rating" id="star3" value="3">
+          <label for="star3" class="fa fa-star"></label>
+  
+          <!-- 2 звезды -->
+          <input type="radio" name="rating" id="star2" value="2">
+          <label for="star2" class="fa fa-star"></label>
+  
+          <!-- 1 звезда -->
+          <input type="radio" name="rating" id="star1" value="1">
+          <label for="star1" class="fa fa-star"></label>
+      </div>
+        <div>
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+        </div>
+        <div class="d-flex ">
+          <button type="submit">
+            SEND
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+  
 
 <section class="client_section layout_padding">
   <div class="container">

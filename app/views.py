@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Category, Product
+from .models import Category, Product, Comment, CommentProductImage
 
 def render_index(request):
 
@@ -33,3 +33,14 @@ def get_product_by_id(request, pk):
         "product": product
     }
     return render(request, "product.html", context)
+
+
+def create_comment(request):
+    data = {
+        "email": request.POST['email'],
+        "text": request.POST['text'],
+        "rating": request.POST['rating'],
+        "product_id": request.POST['product_id']
+    }
+    Comment.objects.create(**data)
+    return redirect(request.META.get("HTTP_REFERER", '/'))
