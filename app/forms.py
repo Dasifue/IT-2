@@ -6,7 +6,7 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ["email", "text", "rating", "product_id"]
+        fields = ["email", "text", "rating", "product"]
     
     def clean_rating(self):
         rating = self.cleaned_data['rating']
