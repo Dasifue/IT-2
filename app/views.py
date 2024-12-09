@@ -15,6 +15,16 @@ def render_index(request):
     return render(request, "index.html", context)
 
 
+def get_products_by_category(request, pk):
+
+    category = get_object_or_404(Category, id=pk)
+    products = Product.objects.filter(category=category).order_by('-created')
+    context = {
+        'category': category,
+        'products': products
+    }
+    return render(request, 'category.html', context)
+
 def get_product_by_id(request, pk): 
  
     product = get_object_or_404(Product, id=pk) 
