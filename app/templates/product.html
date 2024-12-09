@@ -29,6 +29,36 @@
         padding-top: 25%;
     }
 
+    .rating {
+        direction: rtl;
+        display: inline-block;
+    }
+
+    .rating input {
+        display: none;
+    }
+
+    .rating label {
+        color: #ddd;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .rating input:checked ~ label {
+        color: #ffcc00;
+    }
+
+    .rating label:hover,
+    .rating label:hover ~ label {
+        color: #ffcc00;
+    }
+
+    .rating input:checked + label:hover,
+    .rating input:checked + label:hover ~ label {
+        color: #ffcc00;
+    }
+
+
 </style>
 
 <section class="client_section layout_padding">
@@ -92,5 +122,102 @@
       </div>
     </div>
   </section>
+
+  <section class="contact_section ">
+    <div class="container px-0">
+      <div class="heading_container ">
+        <h3 class="">
+          Leave comment
+        </h3>
+      </div>
+    </div>
+    <div class="container container-bg">
+  
+      <form action="{% url 'product' pk=product.id %}" method="post" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        <div> 
+          <input type="email" placeholder="example@gmail.com" name="email"/> 
+          {{ form.email.errors }} 
+        </div> 
+        <div> 
+          <input type="text" class="message-box" placeholder="Comment" name="text" /> 
+          {{ form.text.errors }} 
+        </div> 
+        <div> 
+            <input type="file" name="photos" id="photos" multiple /> 
+            {{ form.photos.errors }} 
+          </div> 
+        <div class="rating"> 
+          <!-- 5 звезд --> 
+          <input type="radio" name="rating" id="star5" value="5"> 
+          <label for="star5" class="fa fa-star"></label> 
+   
+          <!-- 4 звезды --> 
+          <input type="radio" name="rating" id="star4" value="4"> 
+          <label for="star4" class="fa fa-star"></label> 
+   
+          <!-- 3 звезды --> 
+          <input type="radio" name="rating" id="star3" value="3"> 
+          <label for="star3" class="fa fa-star"></label> 
+   
+          <!-- 2 звезды --> 
+          <input type="radio" name="rating" id="star2" value="2"> 
+          <label for="star2" class="fa fa-star"></label> 
+   
+          <!-- 1 звезда --> 
+          <input type="radio" name="rating" id="star1" value="1"> 
+          <label for="star1" class="fa fa-star"></label> 
+          {{ form.rating.errors }} 
+      </div> 
+        <div> 
+          <input type="hidden" name="product" value="{{ product.id }}"> 
+        </div> 
+        <div class="d-flex "> 
+          <button type="submit"> 
+            SEND 
+          </button>  
+        </div> 
+      </form>
+    </div>
+  </section>
+  
+
+<section class="client_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h3>
+          Отзывы
+      </h3>
+    </div>
+  </div>
+  {% for comment in product.comments.all %}
+  <div class="container px-0">
+    <div class="box">
+      <div class="client_info">
+        <div class="client_name">
+          <h5>
+            {{ comment.email }} - {{ comment.rating }}
+          </h5>
+          <h6>
+            {{ comment.created }}
+          </h6>
+        </div>
+        <i class="fa fa-quote-left" aria-hidden="true"></i>      </div>
+      <div class="container container-bg">
+        <div class="row">
+          <div class="col-md-5 col-lg-4 px-0 right-side">
+            <p>
+              {{ comment.text }}
+            </p>
+            {% for image in comment.images.all %}
+            <img src="{{ image.image.url }}" width="40%">
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %} 
+
+</section>
 
 {% endblock %}
