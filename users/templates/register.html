@@ -1,0 +1,52 @@
+{% extends 'base.html' %} 
+{% load static %} 
+ 
+ 
+{% block content %} 
+ 
+ 
+ 
+<section class="contact_section "> 
+    <div class="container px-0"> 
+      <div class="heading_container "> 
+        <h3 class=""> 
+          Register 
+        </h3> 
+      </div> 
+    </div> 
+    <div class="container container-bg"> 
+   
+      <form action="" method="post" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        <div> 
+          <input type="email" placeholder="example@gmail.com" value="{{ form.email.value }}" name="email"/> 
+          {{ form.email.errors }} 
+        </div> 
+        <div> 
+          <input type="text"  placeholder="user123" name="username" /> 
+          {{ form.username.errors }} 
+        </div> 
+        <div> 
+            <input type="text"  placeholder="Name Surname" name="full_name" /> 
+            {{ form.full_name.errors }} 
+          </div> 
+        <div> 
+            <input type="password" name="password1" placeholder="Password"> 
+            {{ form.password1.help_text }} <br>
+            {{ form.password1.errors }} 
+            <input type="password" name="password2" placeholder="Password confirmation"> 
+            {{ form.password2.help_text }} <br>
+            {{ form.password2.errors }} 
+        </div> 
+         
+      </div> 
+        <div class="d-flex "> 
+          <button type="submit"> 
+            REGISTER 
+          </button>  
+        </div> 
+      </form> 
+    </div> 
+  </section> 
+ 
+{% endblock %}
