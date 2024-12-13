@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="contact_section "> 
+    <div class="container px-0"> 
+      <div class="heading_container "> 
+        <h3 class=""> 
+          Login 
+        </h3> 
+      </div> 
+    </div> 
+    <div class="container container-bg"> 
+   
+      <form action="" method="post" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ message }}
+        <div> 
+          <input type="text"  placeholder="user123" name="username" /> 
+          {{ form.username.errors }} 
+        </div> 
+        <div> 
+            <input type="password" name="password" placeholder="Password"> 
+            {{ form.password.errors }} 
+        </div> 
+         
+      </div> 
+        <div class="d-flex "> 
+          <button type="submit"> 
+            LOGIN
+          </button>  
+        </div> 
+      </form> 
+    </div> 
+  </section> 
+
+{% endblock %}

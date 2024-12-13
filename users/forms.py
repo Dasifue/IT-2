@@ -1,6 +1,6 @@
 from django import forms 
 from django.contrib.auth.password_validation import password_validators_help_text_html 
-from django.contrib.auth.forms import UserCreationForm as CreationForm 
+from django.contrib.auth.forms import UserCreationForm as CreationForm
  
  
  
