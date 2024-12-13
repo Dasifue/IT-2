@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm as CreationForm
 from .models import User 
  
  
-class UserCreationForm(forms.ModelForm, CreationForm): 
+class UserCreationForm(CreationForm): 
     password1 = forms.CharField(max_length=100, validators=[password_validators_help_text_html]) 
     password2 = forms.CharField(max_length=100, validators=[password_validators_help_text_html]) 
  
