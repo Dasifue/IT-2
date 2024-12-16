@@ -23,7 +23,7 @@ class Product(models.Model):
         Category, on_delete=models.CASCADE, related_name="products"
     )
 
-    def __str__(self):
+    def __str__(self):  
         return f"{self.name}"
 
 
