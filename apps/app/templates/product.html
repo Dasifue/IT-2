@@ -77,13 +77,14 @@
               <div class="client_info">
                 <div class="client_name">
                   <h5>
-                    {{ product.name }}
+                    {{ product.name }} - {{ product.rating }}
                   </h5>
                   <h6>
                     {{ product.created }}
                   </h6>
                 </div>
-                ${{ product.price }}
+                ${{ product.price }} <br>
+                ${{ product.price_with_discount }}
               </div>
               <div class="container container-bg">
                 <div class="row">
