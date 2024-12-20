@@ -27,3 +27,20 @@ def add_to_cart_view(request, product_id):
         )
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def remove_from_cart_view(request, cart_product_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    if request.user.cart.status == Cart.WAITING:
+        return redirect('index')
+    
+    try:
+        cart_product = CartProduct.objects.get(id=cart_product_id)
+    except CartProduct.DoesNotExist:
+        pass
+    else:
+        cart_product.delete()
+    
+    return redirect(request.META.get('HTTP_REFERER', '/'))
