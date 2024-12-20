@@ -47,22 +47,15 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('discount', models.PositiveSmallIntegerField(blank=True, default=0)),
-<<<<<<< HEAD
-                ('image', models.ImageField(default='default/product.png', upload_to='products')),
-=======
                 ('image', models.ImageField(blank=True, default='default/product.png', upload_to='products')),
->>>>>>> IT_2
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='app.category')),
             ],
         ),
-<<<<<<< HEAD
-=======
         migrations.AddField(
             model_name='comment',
             name='product',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='app.product'),
         ),
->>>>>>> IT_2
     ]
