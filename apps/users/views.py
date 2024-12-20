@@ -1,42 +1,44 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login as _login, logout as _logout, authenticate
+ 
+from .forms import UserCreationForm 
+ 
+def register(request): 
+    form = UserCreationForm() 
+ 
+    if request.method == "POST": 
+        form = UserCreationForm(data=request.POST) 
+        if form.is_valid(): 
+            form.save(commit=True) 
+ 
+    context = { 
+        'form': form 
+    } 
+    return render(request, 'register.html', context)
 
 
-from .forms import UserCreationForm
-
-def register_view(request):
-
-    form = UserCreationForm()
+def login(request):
+    message = ""
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect('login')
-
-    return render(request, "register.html", {"form": form})
-
-
-def login_view(request):
-    message = ''
-
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST.get("username")
+        password = request.POST.get("password")
         user = authenticate(
-            request, 
-            username=username, 
+            request,
+            username=username,
             password=password
         )
         if user is not None:
-            login(request, user)
+            _login(request, user)
             return redirect('index')
         else:
-            message = 'Не удалось авторизоваться'
+            message = "Не повезло."
+        
+    context = {
+        "message": message
+    }
+    return render(request, 'login.html', context)
 
-    return render(request, 'login.html', {'message': message})
-
-
-def logout_view(request):
-    logout(request)
+def logout(request):
+    _logout(request)
     return redirect('login')

@@ -25,6 +25,19 @@ class Product(models.Model):
 
     def __str__(self):  
         return f"{self.name}"
+    
+    @property
+    def price_with_discount(self):
+        return self.price - (self.price * self.discount / 100)
+    
+
+    @property
+    def rating(self):
+        comments = self.comments.values_list('rating', flat=True)
+        try:
+            return round(sum(comments) / len(comments), 2)
+        except ZeroDivisionError:
+            return 0
 
 
 class Comment(models.Model):

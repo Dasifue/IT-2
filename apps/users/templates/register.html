@@ -19,24 +19,22 @@
       <form action="" method="post" enctype="multipart/form-data"> 
         {% csrf_token %} 
         <div> 
-          <input type="email" placeholder="example@gmail.com" name="email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}"/> 
+          <input type="email" placeholder="example@gmail.com" name="email"/> 
           {{ form.email.errors }} 
         </div> 
         <div> 
-          <input type="text"  placeholder="user123" name="username" value="{% if form.username.value %}{{ form.username.value }}{% endif %}"/> 
+          <input type="text"  placeholder="user123" name="username" /> 
           {{ form.username.errors }} 
         </div> 
         <div> 
-            <input type="text"  placeholder="Name Surname" name="full_name" value="{% if form.full_name.value %}{{ form.full_name.value }}{% endif %}"/> 
+            <input type="text"  placeholder="Name Surname" name="full_name" /> 
             {{ form.full_name.errors }} 
           </div> 
         <div> 
             <input type="password" name="password1" placeholder="Password"> 
             {{ form.password1.errors }} 
-            {{ form.password1.help_text }}
             <input type="password" name="password2" placeholder="Password confirmation"> 
             {{ form.password2.errors }} 
-            {{ form.password2.help_text }}
         </div> 
          
       </div> 

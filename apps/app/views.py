@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 
-from .models import Category, Product, Comment, CommentProductImage
-from .forms import CommentCreationForm
+from .models import Category, Product, CommentProductImage
+
+from .forms import CommentForm
 
 def render_index(request):
 
@@ -18,30 +19,32 @@ def render_index(request):
 def get_products_by_category(request, pk):
 
     category = get_object_or_404(Category, id=pk)
-    products = Product.objects.filter(category=category).order_by('-created')
+    products = Product.objects.filter(category=category.id)
+
     context = {
-        'category': category,
-        'products': products
+        "category": category,
+        "products": products
     }
-    return render(request, 'category.html', context)
+    return render(request, "category.html", context)
 
-def get_product_by_id(request, pk): 
- 
-    product = get_object_or_404(Product, id=pk) 
-    form = CommentCreationForm() 
- 
-    if request.method == "POST": 
-        form = CommentCreationForm(data=request.POST) 
-        if form.is_valid(): 
-            comment = form.save(commit=True) 
-            photos = request.FILES.getlist('photos') 
-            if photos: 
-                for file in photos: 
-                    CommentProductImage.objects.create(comment=comment, image=file) 
- 
-    context = { 
-        "product": product, 
-        "form": form 
-    } 
+def get_product_by_id(request, pk):
+
+    product = get_object_or_404(Product, id=pk)
+    form = CommentForm()
+
+
+    if request.method == "POST":
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = form.save(commit=True)
+
+            photos = request.FILES.getlist('photos')
+            if photos:
+                for file in photos:
+                    CommentProductImage.objects.create(image=file, comment=comment)
+
+    context = {
+        "product": product,
+        "form": form
+    }
     return render(request, "product.html", context)
-
